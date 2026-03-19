@@ -6,9 +6,9 @@ const BLUE_LIGHTEST = "#EBF4FE";
 const BLACK = "#1a1a1a";
 const WHITE = "#ffffff";
 
-const KIT_FORM_ID = "9227357";
+const KIT_FORM_ID = 9227357;
 const KIT_API_KEY = "sD_kalaSbNYJQcxxPjt_Yg";
-const KIT_TAG_ID = "17696297";
+const KIT_TAG_ID = 17696297;
 
 const QUESTIONS = [
   {

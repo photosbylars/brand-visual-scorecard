@@ -252,10 +252,17 @@ function getCategoryScores(answers) {
 
 async function submitToKit({ email, firstName, brandName, score, tier, weakest, catScores, scoreShape }) {
   try {
+    const keyMap = {
+      "PRODUCT PHOTOGRAPHY": "score_product_photography",
+      "BRAND CONSISTENCY": "score_brand_consistency",
+      "E-COMMERCE OPTIMIZATION": "score_ecommerce",
+      "MOTION CONTENT": "score_motion_content",
+      "CONTENT SYSTEM": "score_content_system",
+      "BRAND ELEVATION": "score_brand_elevation",
+    };
     const catFields = {};
     catScores.forEach(c => {
-      const key = "score_" + c.name.toLowerCase().replace(/ & /g, "_").replace(/ /g, "_").replace(/-/g, "_");
-      catFields[key] = String(c.score) + "/" + String(c.max);
+      catFields[keyMap[c.name]] = String(c.score) + "/" + String(c.max);
     });
     await fetch(`https://api.convertkit.com/v3/forms/${KIT_FORM_ID}/subscribe`, {
       method: "POST",

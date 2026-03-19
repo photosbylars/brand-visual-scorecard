@@ -250,14 +250,19 @@ function getCategoryScores(answers) {
   });
 }
 
-async function submitToKit({ email, firstName, brandName, score, tier, weakest, scoreShape }) {
+async function submitToKit({ email, firstName, brandName, score, tier, weakest, catScores, scoreShape }) {
   try {
+    const catFields = {};
+    catScores.forEach(c => {
+      const key = "score_" + c.name.toLowerCase().replace(/ & /g, "_").replace(/ /g, "_").replace(/-/g, "_");
+      catFields[key] = String(c.score) + "/" + String(c.max);
+    });
     await fetch(`https://api.convertkit.com/v3/forms/${KIT_FORM_ID}/subscribe`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         api_key: KIT_API_KEY, email, first_name: firstName, tags: [KIT_TAG_ID],
-        fields: { brand_name: brandName, scorecard_score: String(score), scorecard_tier: tier, weakest_category: weakest, score_shape: scoreShape },
+        fields: { brand_name: brandName, scorecard_score: String(score), scorecard_tier: tier, weakest_category: weakest, score_shape: scoreShape, ...catFields },
       }),
     });
     return true;
@@ -430,8 +435,7 @@ export default function BrandVisualScorecard() {
       const score = Object.values(answers).reduce((a, b) => a + b, 0);
       const tierLabel = getTier(score).label;
       const weakestCat = [...getCategoryScores(answers)].sort((a, b) => a.pct - b.pct)[0]?.name || "";
-      await submitToKit({ email, firstName, brandName, score, tier: tierLabel, weakest: weakestCat, scoreShape: analyzeScoreShape(getCategoryScores(answers), brandName) });
-      setSubmitting(false);
+await submitToKit({ email, firstName, brandName, score, tier: tierLabel, weakest: weakestCat, catScores: getCategoryScores(answers), scoreShape: analyzeScoreShape(getCategoryScores(answers), brandName) });      setSubmitting(false);
       setScreen("results");
     };
 

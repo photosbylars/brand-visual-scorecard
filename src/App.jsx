@@ -441,7 +441,7 @@ export default function BrandVisualScorecard() {
         <div style={{ paddingTop: 60, paddingBottom: 40 }}>
           <div style={{ textAlign: "center", marginBottom: 44 }}>
             <div style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 64, height: 64, borderRadius: "50%", background: BLUE_DARK, marginBottom: 20 }}>
-              <span style={{ color: WHITE, fontSize: 13, fontFamily: "'Anton', sans-serif", letterSpacing: "0.05em" }}>DONE</span>
+              <span style={{ color: WHITE, fontSize: 26, fontFamily: "'Anton', sans-serif", letterSpacing: "0.02em" }}>{Object.values(answers).reduce((a, b) => a + b, 0)}</span>
             </div>
             <h2 style={{ ...headingStyle, fontSize: 28, marginBottom: 8 }}>YOUR SCORE IS READY</h2>
             <p style={{ fontSize: 15, color: "#666", maxWidth: 420, margin: "0 auto" }}>
@@ -553,7 +553,7 @@ export default function BrandVisualScorecard() {
             <p style={{ fontSize: 14, color: "#ccc", maxWidth: 400, margin: "0 auto 20px", lineHeight: 1.5 }}>
               Book a free 20-minute call to walk through your results and explore what a visual upgrade looks like for {brandName}.
             </p>
-            <a href="https://photosbylars.com" target="_blank" rel="noopener noreferrer" style={{
+            <a href="https://www.photosbylars.com/book-a-call" target="_blank" rel="noopener noreferrer" style={{
               display: "inline-block", ...headingStyle, fontSize: 13, letterSpacing: "0.12em", padding: "14px 36px",
               background: BLUE_DARK, color: WHITE, textDecoration: "none", transition: "all 0.2s",
             }}

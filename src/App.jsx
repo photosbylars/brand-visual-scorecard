@@ -175,11 +175,16 @@ function getCategoryScores(answers) {
 function getUtmParams() {
   try {
     const params = new URLSearchParams(window.location.search);
-    return {
-      utm_source: params.get("utm_source") || "",
-      utm_medium: params.get("utm_medium") || "",
-      utm_campaign: params.get("utm_campaign") || "",
-    };
+    let source = params.get("utm_source") || "";
+    let medium = params.get("utm_medium") || "";
+    let campaign = params.get("utm_campaign") || "";
+    if (!source && document.referrer) {
+      const ref = document.referrer.toLowerCase();
+      if (ref.includes("linkedin.com")) { source = "linkedin"; medium = "referral"; }
+      else if (ref.includes("google.com")) { source = "google"; medium = "organic"; }
+      else if (ref.includes("photosbylars.com")) { source = "website"; medium = "referral"; }
+    }
+    return { utm_source: source, utm_medium: medium, utm_campaign: campaign };
   } catch { return { utm_source: "", utm_medium: "", utm_campaign: "" }; }
 }
 
